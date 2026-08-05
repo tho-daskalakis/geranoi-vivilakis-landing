@@ -12,7 +12,10 @@
 	<link rel="canonical" href="https://vivilakiscranes.gr/">
 	<meta name="theme-color" content="#ffffff">
 
-	<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffffff'/%3E%3Crect x='10' y='10' width='80' height='80' rx='12' fill='none' stroke='%23111827' stroke-width='6'/%3E%3C/svg%3E">
+<!-- 	<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16.png"> -->
+	<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
+<!-- 	<link rel="icon" type="image/png" sizes="48x48" href="./favicon-48.png"> -->
+<!-- 	<link rel="apple-touch-icon" href="./apple-touch-icon.png"> -->
 
 	<!--
 		HREFLANG: uncomment the "en" line only once https://vivilakiscranes.gr/en/ is actually published,
@@ -47,10 +50,10 @@
 			"currenciesAccepted": "EUR",
 			"address": {
 				"@type": "PostalAddress",
-				"streetAddress": "Μάνου Κατράκη",
+				"streetAddress": "Πάροδος Μάνου Κατράκη, Φοινικιά",
 				"addressLocality": "Ηράκλειο",
 				"addressRegion": "Κρήτη",
-				"postalCode": "71410",
+				"postalCode": "71500",
 				"addressCountry": "GR"
 			},
 			"geo": { "@type": "GeoCoordinates", "latitude": 35.3387, "longitude": 25.1442 },
@@ -65,8 +68,7 @@
 				{"@type": "AdministrativeArea", "name": "Κρήτη"}
 			],
 			"openingHoursSpecification": [
-				{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:00"},
-				{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "14:00"}
+				{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "08:00", "closes": "16:00"}
 			],
 			"sameAs": [
 				"https://www.facebook.com/[ΣΕΛΙΔΑ-FACEBOOK]",
@@ -103,13 +105,15 @@
       --ink:#111827;
       --body:#4B5563;
       --muted:#6B7280;
-      --accent:#10B981;
-      --accent-dark:#059669;
-      --accent-soft-bg:#D1FAE5;
-      --accent-soft-text:#047857;
+			--primary:#2b635e;
+			--secondary:#fcac00;
+      --accent:#57b046;
+      --accent-dark: #48933b;
+      --accent-soft-bg: rgb(119 237 94 / 0.9);
+      --accent-soft-text: #407e30;
       --surface:#F3F4F6;
       --line:#E5E7EB;
-      --footer-bg:#0B0B0C;
+      --footer-bg: #3e3e3e;
       --footer-fg:rgba(255,255,255,.68);
       --white:#FFFFFF;
       --font:"Inter", ui-sans-serif, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
@@ -119,15 +123,15 @@
     }
     *,*::before,*::after{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0;font-family:var(--font);color:var(--ink);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased}
+    body{margin:0;font-family:var(--font),serif;color:var(--ink);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased}
     img{max-width:100%;display:block}
     a{color:inherit}
-    h1,h2,h3{font-family:var(--font);font-weight:800;line-height:1.15;margin:0 0 .5em;letter-spacing:-.02em}
+    h1,h2,h3{font-family:var(--font),serif;font-weight:800;line-height:1.15;margin:0 0 .5em;letter-spacing:-.02em}
     p{margin:0 0 1em;color:var(--body)}
     .container{max-width:1200px;margin:0 auto;padding:0 24px}
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font-weight:600;font-size:.95rem;padding:.85em 1.7em;border-radius:999px;border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .15s ease, transform .12s ease, color .15s ease}
     .btn:active{transform:translateY(1px)}
-    .btn-accent{background:var(--accent);color:#fff}
+    .btn-accent{background:var(--secondary);color:#fff}
     .btn-accent:hover{background:var(--accent-dark)}
     .link-arrow{display:inline-flex;align-items:center;gap:.4em;font-weight:600;font-size:.92rem;text-decoration:none;color:var(--ink)}
     .link-arrow:hover{color:var(--accent-dark)}
@@ -137,8 +141,8 @@
     .ph{position:relative;border-radius:14px;border:1.5px dashed var(--ph-1-line);background:var(--ph-1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#6B7B8A;text-align:center;padding:18px;overflow:hidden}
     .ph svg{width:26px;height:26px;opacity:.55}
     .ph span{font-size:.7rem;letter-spacing:.01em;line-height:1.4}
-    .ph.tone-2{background:var(--ph-2);border-color:var(--ph-2-line);color:#8A6F4E}
-    .ph.tone-3{background:var(--ph-3);border-color:var(--ph-3-line);color:#7A5F70}
+    /*.ph.tone-2{background:var(--ph-2);border-color:var(--ph-2-line);color:#8A6F4E}*/
+    /*.ph.tone-3{background:var(--ph-3);border-color:var(--ph-3-line);color:#7A5F70}*/
 
     /* ---------- Header: transparent -> solid white on scroll ---------- */
     .site-header{
@@ -148,18 +152,28 @@
       --hfg:#ffffff;
     }
     .site-header.scrolled{
-      background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
-      border-bottom-color:var(--line);box-shadow:0 1px 0 rgba(0,0,0,.02);
-      --hfg:var(--ink);
+      background:var(--primary);backdrop-filter:blur(8px);
+			box-shadow:0 1px 0 rgba(0,0,0,.02);
+      --hfg:var(--white);
     }
-    .header-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px;color:var(--hfg);transition:color .25s ease}
+    .header-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;color:var(--hfg);transition:color .25s ease}
     .logo-area{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--hfg)}
-    .logo-mark{
-      width:30px;height:30px;border-radius:7px;flex:none;
-      border:1.5px dashed currentColor;opacity:.6;
-      display:flex;align-items:center;justify-content:center;font-size:.5rem;letter-spacing:.02em;
-    }
+    /* Real logo container: fixed height, natural width, no distortion */
+    .logo-mark{display:flex;align-items:center;height:38px}
+    .logo-mark img{height:100%;width:auto;object-fit:contain;display:block}
+    /* Two logo files recommended: a dark/colour version for light backgrounds,
+       and a light/reversed version for the transparent header over the hero photo + the dark footer.
+       Swap is automatic based on the header's scrolled state. */
+    .logo-mark .logo-dark{display:none}
+    .site-header:not(.scrolled) .logo-mark .logo-light{display:block}
+    .site-header.scrolled .logo-mark .logo-light{display:none}
+    .site-header.scrolled .logo-mark .logo-dark{display:block}
     .logo-word{font-weight:800;font-size:.92rem;letter-spacing:.02em;white-space:nowrap}
+    .site-header .logo-word{display:none}
+    @media(max-width:479px){
+      .header-actions .btn-accent{padding:.55em 1em;font-size:.8rem}
+      .lang-btn{padding:.35em .65em;font-size:.72rem}
+    }
     nav.main-nav{display:none}
     .nav-links{list-style:none;display:flex;align-items:center;gap:28px;margin:0;padding:0;font-size:.92rem;font-weight:500}
     .nav-links a{text-decoration:none;color:var(--hfg);opacity:.92}
@@ -174,19 +188,25 @@
     .has-drop:hover .dropdown, .has-drop:focus-within .dropdown{opacity:1;visibility:visible;transform:translateY(0)}
     .dropdown a{display:block;padding:.6em .8em;border-radius:8px;color:var(--ink);font-size:.88rem;font-weight:500}
     .dropdown a:hover{background:var(--surface)}
-    .header-actions{display:flex;align-items:center;gap:12px}
+    .header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;row-gap:6px}
+    .call-chip{display:none;align-items:center;gap:.5em;color:var(--hfg);text-decoration:none;font-weight:700;font-size:.88rem;white-space:nowrap}
+    .call-chip svg{width:16px;height:16px}
+    @media(min-width:1120px){.call-chip{display:flex}}
     .lang-btn{display:flex;align-items:center;gap:.4em;border:1px solid currentColor;opacity:.85;border-radius:999px;text-decoration:none;font-size:.78rem;font-weight:600;padding:.4em .8em;color:var(--hfg)}
     .lang-btn:hover{opacity:1}
     .menu-toggle{background:none;border:none;color:var(--hfg);padding:.4em;cursor:pointer;line-height:0}
-    @media(min-width:900px){nav.main-nav{display:block}.menu-toggle{display:none}}
+    @media(min-width:1120px){nav.main-nav{display:block}.menu-toggle{display:none}.site-header .logo-word{display:inline}}
     .mobile-nav{display:none;flex-direction:column;background:var(--white);padding:8px 24px 20px;border-top:1px solid var(--line)}
     .mobile-nav.open{display:flex}
     .mobile-nav a{color:var(--ink);text-decoration:none;padding:.8em 0;border-bottom:1px solid var(--line);font-weight:500}
 
     /* ---------- Hero ---------- */
     .hero{position:relative;min-height:640px;display:flex;align-items:flex-end;overflow:hidden}
-    .hero .ph{position:absolute;inset:0;border-radius:0;border-width:0 0 0 0;justify-content:flex-end;align-items:flex-end;padding:20px}
+    .hero-media{position:absolute;inset:0}
+    /* Fallback placeholder sits underneath; the video (once real files are added) paints over it automatically */
+    .hero .ph{position:absolute;inset:0;border-radius:0;border-width:0 0 0 0;justify-content:flex-end;align-items:flex-end;padding:0}
     .hero .ph span{background:rgba(0,0,0,.35);color:#fff;padding:.4em .7em;border-radius:6px;font-size:.66rem}
+    .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
     .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg, rgba(10,15,20,.82) 0%, rgba(10,15,20,.55) 45%, rgba(10,15,20,.25) 100%);z-index:1}
     .hero-content{position:relative;z-index:2;color:#fff;padding:140px 24px 72px;max-width:1200px;margin:0 auto;width:100%}
     .hero-badge{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px}
@@ -195,6 +215,14 @@
     .hero h1{font-size:clamp(2rem,5vw,3.4rem);max-width:16ch}
     .hero-sub{font-size:1.05rem;max-width:56ch;color:rgba(255,255,255,.82)}
     .hero-ctas{display:flex;flex-wrap:wrap;align-items:center;gap:22px;margin-top:26px}
+    .hero-photo{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:left;
+    }
 
     /* ---------- Scroll reveal ---------- */
     .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
@@ -207,11 +235,14 @@
     /* ---------- Company intro (light gray, centered) ---------- */
     .intro{background:var(--surface);text-align:center;padding:88px 0}
     .intro-inner{max-width:640px;margin:0 auto}
-    .intro .logo-mark{color:var(--ink);width:44px;height:44px;margin:0 auto 18px;font-size:.55rem}
+    .intro .logo-mark{height:56px;margin:0 auto 20px;justify-content:center}
+    .intro .logo-mark img{height:100%}
+    .intro .logo-mark .logo-light{display:none}
+    .intro .logo-mark .logo-dark{display:block}
     .intro h2{font-size:clamp(1.6rem,3vw,2.1rem)}
     .intro p{font-size:1rem}
-    .social-row{display:flex;justify-content:center;gap:22px;margin:22px 0 26px;font-size:.88rem;font-weight:600}
-    .social-row a{display:flex;align-items:center;gap:.5em;text-decoration:none;color:var(--ink)}
+    .social-row{display:flex;justify-content:center;gap:16px;margin:22px 0 26px;font-size:.88rem;font-weight:600}
+    .social-row a{display:flex;align-items:center;gap:.4em;text-decoration:none;color:var(--ink)}
     .social-row .dot{width:22px;height:22px;border-radius:50%;background:var(--accent-soft-bg);color:var(--accent-soft-text);display:flex;align-items:center;justify-content:center;font-size:.7rem}
 
     /* ---------- Services ---------- */
@@ -219,7 +250,7 @@
     .section-head{max-width:640px;margin-bottom:20px}
     .section-head h2{font-size:clamp(1.8rem,3.4vw,2.5rem)}
     .badge-row{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 52px}
-    .badge-row span{background:var(--accent-soft-bg);color:var(--accent-soft-text);font-size:.82rem;font-weight:600;padding:.5em 1.1em;border-radius:999px}
+    .badge-row span{background:var(--primary);color:var(--white);font-size:.82rem;font-weight:600;padding:.5em 1.1em;border-radius:999px}
     .services-grid{display:grid;grid-template-columns:1fr;gap:44px 40px}
     @media(min-width:680px){.services-grid{grid-template-columns:repeat(2,1fr)}}
     @media(min-width:1024px){.services-grid{grid-template-columns:repeat(3,1fr)}}
@@ -240,7 +271,7 @@
     @media(min-width:520px){.field-row.two{grid-template-columns:1fr 1fr}}
     .field{background:var(--surface);border-radius:10px;border:1px solid transparent}
     .field input,.field textarea{
-      width:100%;background:transparent;border:0;padding:1em 1.1em;font:inherit;color:var(--ink);border-radius:10px;
+      width:100%;background:transparent;border: 1px solid var(--accent-dark);padding:1em 1.1em;font:inherit;color:var(--ink);border-radius:10px;
     }
     .field input::placeholder,.field textarea::placeholder{color:var(--muted)}
     .field textarea{min-height:130px;resize:vertical}
@@ -266,7 +297,8 @@
     footer{background:var(--footer-bg);color:var(--footer-fg)}
     .footer-top{display:grid;grid-template-columns:1fr;gap:36px;padding:64px 0 48px;border-bottom:1px solid rgba(255,255,255,.1)}
     @media(min-width:860px){.footer-top{grid-template-columns:1fr 1fr}}
-    .footer-brand .logo-mark{color:#fff}
+    .footer-brand .logo-mark .logo-light{display:block}
+    .footer-brand .logo-mark .logo-dark{display:none}
     .footer-brand .logo-word{color:#fff}
     .footer-brand p{color:var(--footer-fg);margin-top:14px}
     .footer-social{display:flex;gap:12px;margin-top:18px}
@@ -296,7 +328,10 @@
 <header class="site-header" id="siteHeader">
 	<div class="header-row">
 		<a href="#top" class="logo-area">
-			<span class="logo-mark"><img src="./logo.png"></img></span>
+			<span class="logo-mark">
+				<img class="logo-light" src="./logo.png" alt="Βιβιλάκης Εμμανουήλ – Γερανοί και Μεταφορές">
+				<img class="logo-dark" src="./logo.png" alt="Βιβιλάκης Εμμανουήλ – Γερανοί και Μεταφορές">
+			</span>
 			<span class="logo-word">ΒΙΒΙΛΑΚΗΣ ΕΜΜΑΝΟΥΗΛ</span>
 		</a>
 
@@ -317,7 +352,11 @@
 					<li><a href="#contact">Επικοινωνία</a></li>
 				</ul>
 			</nav>
-			<a class="lang-btn" href="/en/" hreflang="en" lang="en">EN</a>
+			<a class="call-chip" href="tel:+306949776292">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg>
+				6949 776 292
+			</a>
+<!-- 			<a class="lang-btn" href="/en/" hreflang="en" lang="en">EN</a> -->
 			<a class="btn btn-accent" href="#contact" style="padding:.6em 1.3em;font-size:.88rem">Ζητήστε προσφορά</a>
 			<button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Άνοιγμα μενού">
 				<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -329,6 +368,7 @@
 		<a href="#about">Εταιρεία</a>
 		<a href="#faq">Συχνές Ερωτήσεις</a>
 		<a href="#contact">Επικοινωνία</a>
+		<a href="tel:+306949776292" style="font-weight:700">Καλέστε: 6949 776 292</a>
 	</nav>
 </header>
 
@@ -336,7 +376,14 @@
 
 	<!-- HERO -->
 	<div id="top" class="hero">
-		<div class="ph" aria-hidden="true"><span>[ΦΩΤΟ / VIDEO ΦΟΝΤΟ: Γερανός ή φορτηγό σε εργασία]</span></div>
+		<div class="hero-media" aria-hidden="true">
+			<!-- Fallback placeholder — stays visible until real hero-video.mp4/.webm + hero-poster.jpg are added -->
+			<div class="ph"><img src='image00084-cropped.jpeg' alt='Main crane of Vivilakis transporting a boat.' class='hero-photo'></div>
+<!-- 			<video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="metadata" poster="./hero-poster.jpg"> -->
+<!-- 				<source src="./hero-video.webm" type="video/webm"> -->
+<!-- 				<source src="./hero-video.mp4" type="video/mp4"> -->
+<!-- 			</video> -->
+		</div>
 		<div class="hero-content">
 			<div class="hero-badge">
 				<span class="pill">Βιβιλάκης Εμμανουήλ</span>
@@ -354,18 +401,20 @@
 	<!-- COMPANY INTRO -->
 	<section class="intro reveal" id="about">
 		<div class="container intro-inner">
-			<div class="logo-mark">ΛΟΓΟ</div>
+			<div class="logo-mark">
+				<img class="logo-dark" src="./logo.png" alt="Βιβιλάκης Εμμανουήλ – Γερανοί και Μεταφορές">
+			</div>
 			<h2>Βιβιλάκης Εμμανουήλ Γερανοί και Μεταφορές</h2>
-			<p>Με έδρα το Ηράκλειο Κρήτης, εξειδικευόμαστε στις ανυψώσεις με γερανούς, τις ειδικές μεταφορές σε σκάφη και βαριά φορτία και τις εγκαταστάσεις βαρέως εξοπλισμού. 
-        Συνδυάζουμε σύγχρονο εξοπλισμό, τεχνογνωσία και συνέπεια, παρέχοντας ασφαλείς και αξιόπιστες λύσεις συνεχίζοντας μία οικογενειακή παράδοση στον χώρο που μετρά πάνω από 50 χρόνια. 
-        <!-- Προσφέρουμε αξιόπιστες υπηρεσίες γερανού και μεταφορών, με ειδίκευση στην ανύψωση και μεταφορά σκαφών, καθώς και σε εργασίες εργοταξίων σε όλη την Κρήτη.-->
-      </p>
+			<p>Με έδρα το Ηράκλειο Κρήτης, εξειδικευόμαστε στις ανυψώσεις με γερανούς, τις ειδικές μεταφορές σε σκάφη και βαριά φορτία και τις εγκαταστάσεις βαρέως εξοπλισμού.
+				Συνδυάζουμε σύγχρονο εξοπλισμό, τεχνογνωσία και συνέπεια, παρέχοντας ασφαλείς και αξιόπιστες λύσεις συνεχίζοντας μία οικογενειακή παράδοση στον χώρο που μετρά πάνω από 50 χρόνια.
+			</p>
 			<p>Διαθέτουμε γερανοφόρα οχήματα, καλαθοφόρο, κλαρκ, πλατφόρμες εργασίας προσωπικού και νταλίκα μεταφοράς σκαφών και βαρέων φορτίων.</p>
 			<div class="social-row">
-				<a href="https://www.facebook.com/[ΣΕΛΙΔΑ-FACEBOOK]"><span class="dot">f</span> [@facebook_handle]</a>
-				<a href="https://www.instagram.com/[ΛΟΓΑΡΙΑΣΜΟΣ-INSTAGRAM]"><span class="dot">ig</span> [@instagram_handle]</a>
+				<a href="https://www.facebook.com/profile.php?id=61574725953448">
+					<img src='facebook.svg' alt='facebook icon' style='width: 32px; height: 32px;'> Βιβιλάκης Εμμανουήλ - Γερανοί & Ειδικές Μεταφορές</a>
+				<a target='_blank' href="https://www.instagram.com/vivilakis_cranes?igsh=MTA5aTFhanNqam5mbA==">
+					<img src='instagram.svg' alt='instagram icon' style='width: 32px; height: 32px'> @vivilakis_cranes</a>
 			</div>
-			<a class="link-arrow" href="#services">Δείτε τις υπηρεσίες μας →</a>
 		</div>
 	</section>
 
@@ -386,33 +435,33 @@
 				<div class="service-item reveal">
 					<h3>Ανυψώσεις με γερανό</h3>
 					<p>Χρήση σύγχρονου και αξιόπιστου εξοπλισμού για κάθε είδους ανύψωση.</p>
-					<a class="link-arrow" href="#contact">Δείτε περισσότερα →</a>
+<!-- 					<a class="link-arrow" href="#contact">Δείτε περισσότερα →</a> -->
 				</div>
 				<div class="service-item reveal">
 					<h3>Μεταφορές Βαρέων Φορτίων</h3>
 					<p>Μεταφορά μηχανημάτων, υλικών και εξοπλισμού σε όλη την Κρήτη, με ασφάλεια και συνέπεια.</p>
-					<a class="link-arrow" href="#contact">Δείτε περισσότερα →</a>
+<!-- 					<a class="link-arrow" href="#contact">Δείτε περισσότερα →</a> -->
 				</div>
 				<div class="service-item reveal">
 					<h3>Ανύψωση &amp; Μεταφορά Σκαφών</h3>
 					<p>Ανέλκυση, καθέλκυση και μεταφορά σκαφών σε μαρίνες και ναυπηγεία.</p>
-					<a class="link-arrow" href="#contact">Δείτε περισσότερα →</a>
+<!-- 					<a class="link-arrow" href="#contact">Δείτε περισσότερα →</a> -->
 				</div>
 				<div class="service-item reveal">
 					<h3>Εργασίες με Καλαθοφόρο</h3>
 					<p>Καλάθι εργασίας για προσωπικό έως 32 μέτρα ύψος.</p>
-					<a class="link-arrow" href="#contact">Δείτε περισσότερα →</a>
+<!-- 					<a class="link-arrow" href="#contact">Δείτε περισσότερα →</a> -->
 				</div>
 				<div class="service-item reveal">
 					<h3>Έκτακτες Ανάγκες</h3>
 					<p>Άμεση ανταπόκριση για επείγουσες ανάγκες ανύψωσης ή μεταφοράς, όποτε προκύψουν.</p>
-					<a class="link-arrow" href="#contact">Δείτε περισσότερα →</a>
+<!-- 					<a class="link-arrow" href="#contact">Δείτε περισσότερα →</a> -->
 				</div>
-        <div class="service-item reveal">
-          <h3>Μηχανήματα έργου</h3>
-          <p>Κλαρκ ανυψωτικής ικανότητας έως 7 τόννους και πλατφόρμες εργασίας προσωπικού.</p>
-          <a class="link-arrow" href="#contact">Δείτε περισσότερα →</a>
-        </div>
+				<div class="service-item reveal">
+					<h3>Μηχανήματα έργου</h3>
+					<p>Κλαρκ ανυψωτικής ικανότητας έως 7 τόννους και πλατφόρμες εργασίας προσωπικού.</p>
+<!-- 					<a class="link-arrow" href="#contact">Δείτε περισσότερα →</a> -->
+				</div>
 			</div>
 		</div>
 	</section>
@@ -421,9 +470,8 @@
 	<section class="section" style="padding-top:0">
 		<div class="container">
 			<div class="split">
-				<div class="ph reveal" aria-hidden="true">
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-					<span>[ΦΩΤΟ: Εξοπλισμός ή εργασία σε εξέλιξη]</span>
+				<div class="reveal" aria-hidden="true">
+					<img src='worksite.jpeg' alt='Crane at a worksite, unloading cargo.' style='border-radius: 5%'>
 				</div>
 				<div class="reveal">
 					<h2>Σταθερές συνεργασίες με βάση την εμπιστοσύνη</h2>
@@ -446,8 +494,8 @@
 					<p>Το κόστος εξαρτάται από το βάρος, την απόσταση και τη διάρκεια της εργασίας. Επικοινωνήστε μαζί μας για δωρεάν, γραπτή προσφορά.</p>
 				</details>
 				<details class="faq-item">
-					<summary>Εξυπηρετείτε όλη την Κρήτη ή μόνο το Ηράκλειο;</summary>
-					<p>Η έδρα είναι στο Ηράκλειο, εξυπηρετούμε όμως εργασίες σε όλο το νησί: Χανιά, Ρέθυμνο, Άγιο Νικόλαο, Σητεία, Ιεράπετρα και Μοίρες.</p>
+					<summary>Εξυπηρετείτε όλη την Κρήτη ή μόνο στο Ηράκλειο;</summary>
+					<p>Η έδρα είναι στο Ηράκλειο, εξυπηρετούμε όμως εργασίες σε όλο το νησί: Χανιά, Ρέθυμνο, Άγιο Νικόλαο, Σητεία, Ιεράπετρα και Μοίρες. Εξυπηρετούμε σε όλη την Κρήτη.</p>
 				</details>
 				<details class="faq-item">
 					<summary>Κάνετε ανύψωση και μεταφορά σκαφών;</summary>
@@ -483,7 +531,7 @@
 							<input type="checkbox" required style="margin-top:3px">
 							<span>Συμφωνώ να επικοινωνήσετε μαζί μου σχετικά με το αίτημά μου.</span>
 						</label>
-						<button type="submit" class="btn btn-accent" style="width:100%">Αποστολή</button>
+						<button type="submit" class="btn" style="width:100%; background: var(--primary); color: var(--white)">Αποστολή</button>
 					</form>
 				</div>
 
@@ -493,7 +541,7 @@
 						<div>
 							<h3>Γερανοί και Μεταφορές Βιβιλάκης Εμμανουήλ</h3>
 							<div>Πάροδος Μάνου Κατράκη, Φοινικιά, Ηράκλειο Κρήτης, 71500</div>
-							<!-- add map -->
+<!-- 							<div class="ph" style="margin-top:12px;aspect-ratio:16/9;padding:12px"><span>[ΧΑΡΤΗΣ — προσθέστε Google Maps embed με lazy-load]</span></div> -->
 						</div>
 					</div>
 					<div class="info-card">
@@ -508,7 +556,7 @@
 						<div>
 							<h3>Τηλέφωνο</h3>
 							<a href="tel:+306949776292">6949 776 292</a>
-							<div style="margin-top:4px;font-size:.85rem">Δευ–Σάβ 8:00–16:00</div>
+							<div style="margin-top:4px;font-size:.85rem">Δευτέρα–Σάββατο, 8:00–16:00</div>
 						</div>
 					</div>
 				</div>
@@ -523,7 +571,9 @@
 		<div class="footer-top">
 			<div class="footer-brand">
 				<div class="logo-area" style="display:flex;gap:10px;align-items:center">
-					<span class="logo-mark">ΛΟΓΟ</span>
+					<span class="logo-mark">
+						<img class="logo-light" src="./logo.png" alt="Βιβιλάκης Εμμανουήλ – Γερανοί και Μεταφορές">
+					</span>
 					<span class="logo-word">Βιβιλάκης Εμμανουήλ</span>
 				</div>
 				<p>Ο αξιόπιστος συνεργάτης σας στην Κρήτη</p>
@@ -571,6 +621,20 @@
 
 <script>
 	(function(){
+		// Hero video: skip autoplay for reduced-motion or slow/data-saver connections — poster/placeholder stays
+		var heroVideo = document.getElementById('heroVideo');
+		if(heroVideo){
+			var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			var conn = navigator.connection || navigator.webkitConnection || navigator.mozConnection;
+			var slowConn = conn && (conn.saveData || /2g/.test(conn.effectiveType || ''));
+			if(reduceMotion || slowConn){
+				heroVideo.removeAttribute('autoplay');
+				heroVideo.pause();
+				heroVideo.removeAttribute('src');
+				heroVideo.load();
+			}
+		}
+
 		// Header: transparent -> solid white on scroll
 		var header = document.getElementById('siteHeader');
 		function onScroll(){
