@@ -1,0 +1,98 @@
+# vivilakiscranes.gr — Apache/LiteSpeed config (pointer.gr hosting)
+#
+# Canonical form of every URL: https://vivilakiscranes.gr/<path>  (no www, no .php)
+# This must stay consistent with <link rel="canonical"> and sitemap.xml.
+
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	# --- Force HTTPS -----------------------------------------------------
+	RewriteCond %{HTTPS} !=on
+	RewriteCond %{HTTP:X-Forwarded-Proto} !https
+	RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+	# --- Single canonical host: strip www --------------------------------
+	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+	RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+	# --- Redirect .php requests to the extensionless form ----------------
+	# Only for direct client requests, so the internal rewrite below cannot loop.
+	RewriteCond %{THE_REQUEST} "\s/+(.+?)\.php[\s?]" [NC]
+	RewriteRule ^ /%1 [R=301,L]
+
+	# index.php (and /index) both collapse to /
+	RewriteCond %{THE_REQUEST} "\s/+index(\.php)?[\s?]" [NC]
+	RewriteRule ^ / [R=301,L]
+
+	# --- Serve /foo from foo.php -----------------------------------------
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME}\.php -f
+	RewriteRule ^(.+?)/?$ $1.php [L]
+</IfModule>
+
+# --- MIME types ----------------------------------------------------------
+# Declared explicitly: some shared hosts still ship a mime.types without WebP
+# or WebM, and a wrong Content-Type stops the browser using the file at all.
+<IfModule mod_mime.c>
+	AddType image/webp  .webp
+	AddType video/mp4   .mp4
+	AddType video/webm  .webm
+	AddType image/svg+xml .svg
+</IfModule>
+
+# --- Compression ---------------------------------------------------------
+<IfModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+	AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+	AddOutputFilterByType DEFLATE application/json application/ld+json
+	AddOutputFilterByType DEFLATE image/svg+xml application/xml
+</IfModule>
+
+# --- Caching -------------------------------------------------------------
+# HTML stays short-lived so content edits appear promptly; static assets are
+# long-lived. Rename an asset (or add ?v=) when its contents change.
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresDefault                          "access plus 1 month"
+	ExpiresByType text/html                 "access plus 0 seconds"
+	ExpiresByType text/css                  "access plus 1 year"
+	ExpiresByType image/svg+xml             "access plus 1 year"
+	ExpiresByType image/jpeg                "access plus 1 year"
+	ExpiresByType image/png                 "access plus 1 year"
+	ExpiresByType image/webp                "access plus 1 year"
+	ExpiresByType video/mp4                 "access plus 1 year"
+	ExpiresByType video/webm                "access plus 1 year"
+	ExpiresByType application/xml           "access plus 1 hour"
+</IfModule>
+
+<IfModule mod_headers.c>
+	<FilesMatch "\.(css|js|svg|jpe?g|png|webp|mp4|webm|woff2?)$">
+		Header set Cache-Control "public, max-age=31536000, immutable"
+	</FilesMatch>
+	<FilesMatch "\.(php|html)$">
+		Header set Cache-Control "public, max-age=0, must-revalidate"
+	</FilesMatch>
+
+	# Modest security headers. No CSP here: the page uses inline <script>/<style>
+	# attributes, so a meaningful policy needs hashes or nonces first.
+	Header always set X-Content-Type-Options "nosniff"
+	Header always set Referrer-Policy "strict-origin-when-cross-origin"
+	Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# --- Protect config and tooling ------------------------------------------
+<FilesMatch "^(config\.php|config\.example\.php|\.gitignore|CLAUDE\.md)$">
+	Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+	# vendor/  = PHPMailer source; .ratelimit/ = the per-IP counters send.php writes.
+	# Neither should ever be reachable over HTTP.
+	RewriteRule ^(tools|partials|vendor)/ - [F,L]
+	RewriteRule ^\.ratelimit(/|$) - [F,L]
+</IfModule>
+
+ErrorDocument 404 /404.php

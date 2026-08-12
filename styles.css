@@ -1,0 +1,294 @@
+    :root{
+      --ink:#111827;
+      --body:#4B5563;
+      --muted:#6B7280;
+			--primary:#2b635e;
+			--secondary:#fcac00;
+      --accent:#57b046;
+      --accent-dark: #48933b;
+      --accent-soft-bg: rgb(119 237 94 / 0.9);
+      --accent-soft-text: #407e30;
+      --surface:#F3F4F6;
+      --line:#E5E7EB;
+      --footer-bg: #3e3e3e;
+      --footer-fg:rgba(255,255,255,.68);
+      --white:#FFFFFF;
+      --font:"Inter", ui-sans-serif, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      --ph-1:#E4EAF0; --ph-1-line:#B9C6D4;
+      --ph-2:#EFE6DA; --ph-2-line:#D8C4A8;
+      --ph-3:#E9E1E6; --ph-3-line:#CDB9C6;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:var(--font),serif;color:var(--ink);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased}
+    /* height:auto is load-bearing. width/height attributes are presentational hints
+       that set the CSS height, so without this max-width shrinks the width while the
+       declared height stays pinned — worksite.jpeg rendered at ~half its aspect ratio. */
+    img{max-width:100%;height:auto;display:block}
+    a{color:inherit}
+    h1,h2,h3{font-family:var(--font),serif;font-weight:800;line-height:1.15;margin:0 0 .5em;letter-spacing:-.02em}
+    p{margin:0 0 1em;color:var(--body)}
+    .container{max-width:1200px;margin:0 auto;padding:0 24px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font-weight:600;font-size:.95rem;padding:.85em 1.7em;border-radius:999px;border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .15s ease, transform .12s ease, color .15s ease}
+    .btn:active{transform:translateY(1px)}
+    .btn-accent{background:var(--secondary);color:#fff}
+    .btn-accent:hover{background:var(--accent-dark)}
+    .link-arrow{display:inline-flex;align-items:center;gap:.4em;font-weight:600;font-size:.92rem;text-decoration:none;color:var(--ink)}
+    .link-arrow:hover{color:var(--accent-dark)}
+    :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+    /* ---------- Placeholder media block ---------- */
+    .ph{position:relative;border-radius:14px;border:1.5px dashed var(--ph-1-line);background:var(--ph-1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#6B7B8A;text-align:center;padding:18px;overflow:hidden}
+    .ph svg{width:26px;height:26px;opacity:.55}
+    .ph span{font-size:.7rem;letter-spacing:.01em;line-height:1.4}
+    /*.ph.tone-2{background:var(--ph-2);border-color:var(--ph-2-line);color:#8A6F4E}*/
+    /*.ph.tone-3{background:var(--ph-3);border-color:var(--ph-3-line);color:#7A5F70}*/
+
+    /* ---------- Header: transparent -> solid white on scroll ---------- */
+    .site-header{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      background:transparent;border-bottom:1px solid transparent;
+      transition:background .25s ease, border-color .25s ease, box-shadow .25s ease;
+      --hfg:#ffffff;
+    }
+    .site-header.scrolled{
+      background:var(--primary);backdrop-filter:blur(8px);
+			box-shadow:0 1px 0 rgba(0,0,0,.02);
+      --hfg:var(--white);
+    }
+    .header-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;color:var(--hfg);transition:color .25s ease}
+    .logo-area{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--hfg)}
+    /* Real logo container: fixed height, natural width, no distortion */
+    .logo-mark{display:flex;align-items:center;height:46px}
+    .logo-mark img{height:100%;width:auto;object-fit:contain;display:block}
+    /* Two logo files recommended: a dark/colour version for light backgrounds,
+       and a light/reversed version for the transparent header over the hero photo + the dark footer.
+       Swap is automatic based on the header's scrolled state. */
+    .logo-mark .logo-dark{display:none}
+    .site-header:not(.scrolled) .logo-mark .logo-light{display:block}
+    .site-header.scrolled .logo-mark .logo-light{display:none}
+    .site-header.scrolled .logo-mark .logo-dark{display:block}
+    .logo-word{font-weight:800;font-size:.92rem;letter-spacing:.02em;white-space:nowrap}
+    .site-header .logo-word{display:none}
+    @media(max-width:479px){
+      .header-actions .btn-accent{padding:.55em 1em;font-size:.8rem}
+      .lang-btn{padding:.35em .65em;font-size:.72rem}
+    }
+    nav.main-nav{display:none}
+    .nav-links{list-style:none;display:flex;align-items:center;gap:28px;margin:0;padding:0;font-size:.92rem;font-weight:500}
+    .nav-links a{text-decoration:none;color:var(--hfg);opacity:.92}
+    .nav-links a:hover{opacity:1}
+    .has-drop{position:relative}
+    .chevron{font-size:.6rem;margin-left:.3em;opacity:.7}
+    .dropdown{
+      position:absolute;top:100%;left:0;margin-top:14px;background:var(--white);border:1px solid var(--line);
+      border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,.08);padding:8px;min-width:220px;
+      opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .15s ease, transform .15s ease, visibility .15s;
+    }
+    .has-drop:hover .dropdown, .has-drop:focus-within .dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+    .dropdown a{display:block;padding:.6em .8em;border-radius:8px;color:var(--ink);font-size:.88rem;font-weight:500}
+    .dropdown a:hover{background:var(--surface)}
+    .header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;row-gap:6px}
+    .call-chip{display:none;align-items:center;gap:.5em;color:var(--hfg);text-decoration:none;font-weight:700;font-size:.88rem;white-space:nowrap}
+    .call-chip svg{width:16px;height:16px}
+    @media(min-width:1120px){.call-chip{display:flex}}
+    .lang-btn{display:flex;align-items:center;gap:.4em;border:1px solid currentColor;opacity:.85;border-radius:999px;text-decoration:none;font-size:.78rem;font-weight:600;padding:.4em .8em;color:var(--hfg)}
+    .lang-btn:hover{opacity:1}
+    .menu-toggle{background:none;border:none;color:var(--hfg);padding:.4em;cursor:pointer;line-height:0}
+    @media(min-width:1120px){nav.main-nav{display:block}.menu-toggle{display:none}.site-header .logo-word{display:inline}}
+    .mobile-nav{display:none;flex-direction:column;background:var(--white);padding:8px 24px 20px;border-top:1px solid var(--line)}
+    .mobile-nav.open{display:flex}
+    .mobile-nav a{color:var(--ink);text-decoration:none;padding:.8em 0;border-bottom:1px solid var(--line);font-weight:500}
+
+    /* ---------- Hero ---------- */
+    .hero{position:relative;min-height:640px;display:flex;align-items:flex-end;overflow:hidden}
+    .hero-media{position:absolute;inset:0}
+    /* Fallback placeholder sits underneath; the video (once real files are added) paints over it automatically */
+    .hero .ph{position:absolute;inset:0;border-radius:0;border-width:0 0 0 0;justify-content:flex-end;align-items:flex-end;padding:0}
+    .hero .ph span{background:rgba(0,0,0,.35);color:#fff;padding:.4em .7em;border-radius:6px;font-size:.66rem}
+    /* Injected and faded in by partials/footer.php; stays invisible if it never loads.
+       Same object-position as .hero-photo so the cross-fade does not shift the frame. */
+    .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity .6s ease}
+    .hero-video.is-playing{opacity:1}
+    @media (prefers-reduced-motion: reduce){.hero-video{display:none}}
+    /* The logo flourish is composited into media/hero-video.mp4 by
+       tools/build-hero-video.sh — it is not a DOM element. */
+    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg, rgba(10,15,20,.82) 0%, rgba(10,15,20,.55) 45%, rgba(10,15,20,.25) 100%);z-index:1}
+    .hero-content{position:relative;z-index:2;color:#fff;padding:148px 24px 72px;max-width:1200px;margin:0 auto;width:100%}
+    .hero-badge{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px}
+    .hero-badge .pill{background:rgba(0,0,0,.55);border-radius:999px;padding:.4em 1em;font-size:.78rem;font-weight:600}
+    .hero-badge .tag{font-size:.85rem;color:rgba(255,255,255,.85)}
+    .hero h1{font-size:clamp(2rem,5vw,3.4rem);max-width:16ch}
+    .hero-sub{font-size:1.05rem;max-width:56ch;color:rgba(255,255,255,.82)}
+    .hero-ctas{display:flex;flex-wrap:wrap;align-items:center;gap:22px;margin-top:26px}
+    .hero-photo{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      /* Centred, not left: the hero frame puts the truck on the right, and the hero
+         crops horizontally on narrow viewports. Left would show only sky and gravel. */
+      object-position:center;
+    }
+
+    /* ---------- Scroll reveal ---------- */
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
+    .reveal.is-visible{opacity:1;transform:translateY(0)}
+    @media (prefers-reduced-motion: reduce){
+      .reveal{opacity:1;transform:none;transition:none}
+      html{scroll-behavior:auto}
+    }
+
+    /* ---------- Company intro (light gray, centered) ---------- */
+    .intro{background:var(--surface);text-align:center;padding:88px 0}
+    .intro-inner{max-width:640px;margin:0 auto}
+    .intro .logo-mark{height:80px;margin:0 auto 20px;justify-content:center}
+    .intro .logo-mark img{height:100%}
+    .intro .logo-mark .logo-light{display:none}
+    .intro .logo-mark .logo-dark{display:block}
+    .intro h2{font-size:clamp(1.6rem,3vw,2.1rem)}
+    .intro p{font-size:1rem}
+    .social-row{display:flex;justify-content:center;gap:16px;margin:22px 0 26px;font-size:.88rem;font-weight:600}
+    .social-row a{display:flex;align-items:center;gap:.4em;text-decoration:none;color:var(--ink)}
+    .social-row .dot{width:22px;height:22px;border-radius:50%;background:var(--accent-soft-bg);color:var(--accent-soft-text);display:flex;align-items:center;justify-content:center;font-size:.7rem}
+
+    /* ---------- Services ---------- */
+    .section{padding:96px 0}
+    .section-head{max-width:640px;margin-bottom:20px}
+    .section-head h2{font-size:clamp(1.8rem,3.4vw,2.5rem)}
+    .badge-row{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 52px}
+    .badge-row span{background:var(--primary);color:var(--white);font-size:.82rem;font-weight:600;padding:.5em 1.1em;border-radius:999px}
+    .services-grid{display:grid;grid-template-columns:1fr;gap:44px 40px}
+    @media(min-width:680px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:1024px){.services-grid{grid-template-columns:repeat(3,1fr)}}
+    .service-item h3{font-size:1.15rem}
+    .service-item p{font-size:.95rem}
+
+    /* ---------- Partnership / photo section ---------- */
+    .split{display:grid;grid-template-columns:1fr;gap:40px;align-items:center}
+    @media(min-width:860px){.split{grid-template-columns:1fr 1fr;gap:64px}}
+    .split .ph{aspect-ratio:4/3}
+    .split h2{font-size:clamp(1.6rem,3vw,2.1rem)}
+
+    /* ---------- Contact ---------- */
+    .contact-grid{display:grid;grid-template-columns:1fr;gap:48px}
+    @media(min-width:940px){.contact-grid{grid-template-columns:1.1fr .9fr}}
+    .contact-grid h2{font-size:clamp(1.7rem,3vw,2.3rem)}
+    .field-row{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:14px}
+    @media(min-width:520px){.field-row.two{grid-template-columns:1fr 1fr}}
+    .field{background:var(--surface);border-radius:10px;border:1px solid transparent}
+    .field input,.field textarea{
+      width:100%;background:transparent;border: 1px solid var(--accent-dark);padding:1em 1.1em;font:inherit;color:var(--ink);border-radius:10px;
+    }
+    .field input::placeholder,.field textarea::placeholder{color:var(--muted)}
+    .field textarea{min-height:130px;resize:vertical}
+    .field:focus-within{outline:2px solid var(--accent)}
+    .consent{display:flex;gap:.6em;align-items:flex-start;font-size:.8rem;color:var(--muted);margin:8px 0 20px}
+    .info-cards{display:flex;flex-direction:column;gap:16px}
+    .info-card{background:var(--surface);border-radius:14px;padding:24px;display:flex;align-items:flex-start;gap:16px}
+    .info-card svg{width:22px;height:22px;flex:none;margin-top:2px;stroke:var(--ink)}
+    .info-card h3{font-size:1rem;margin-bottom:.2em}
+    .info-card a,.info-card div{color:var(--body);text-decoration:none;font-size:.94rem}
+    .info-card a{color:var(--ink);font-weight:600}
+
+    /* Form status banner, set by send.php via ?sent= */
+    .form-status{border-radius:10px;padding:14px 16px;margin:20px 0 0;font-size:.94rem;font-weight:500;border:1px solid}
+    .form-status.is-ok{background:#eef7ee;border-color:#bcdcbb;color:#1e4620}
+    .form-status.is-error{background:#fdf0ef;border-color:#f0c4c0;color:#7a231c}
+    /* Honeypot: off-screen rather than display:none, and out of the tab order. */
+    .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+    /* Map — static image by default; the Google embed replaces it on request.
+       See tools/build-map.py and the click-to-load handler in partials/footer.php. */
+    .map-card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--white)}
+    .map-static{position:relative;line-height:0}
+    .map-static img{width:100%;height:auto}
+    .map-static iframe{display:block;width:100%;height:340px;border:0}
+    .map-load{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);
+      background:var(--white);color:var(--ink);border:1px solid var(--line);
+      border-radius:999px;padding:.7em 1.4em;font:600 .88rem/1 var(--font),sans-serif;
+      cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.18);white-space:nowrap}
+    .map-load:hover{background:var(--surface)}
+    .map-links{display:flex;flex-wrap:wrap;align-items:center;gap:18px;padding:16px 16px 0}
+    .map-attrib{font-size:.75rem;color:var(--muted);margin:10px 0 0;padding:0 16px 14px;line-height:1.5}
+    .map-attrib a{color:var(--muted)}
+
+    /* ---------- FAQ ---------- */
+    .faq-list{max-width:760px}
+    .faq-item{border-bottom:1px solid var(--line);padding:4px 0}
+    .faq-item summary{cursor:pointer;font-weight:600;padding:18px 2px;list-style:none;display:flex;justify-content:space-between;gap:16px;font-size:1rem}
+    .faq-item summary::-webkit-details-marker{display:none}
+    .faq-item summary::after{content:"+";color:var(--accent-dark);font-size:1.3rem;font-weight:400}
+    .faq-item[open] summary::after{content:"–"}
+    .faq-item p{padding:0 2px 18px;font-size:.95rem}
+
+    /* ---------- Gallery ---------- */
+    /* Masonry columns rather than a fixed-aspect grid: the library runs from 0.56
+       to 1.05 aspect and 16 of 22 shots are portrait, so cover-cropping into
+       uniform cells would slice the crane booms — the subject — out of frame. */
+    .page-head{padding-top:158px;padding-bottom:24px}
+    .breadcrumb{font-size:.85rem;color:var(--body);margin-bottom:20px}
+    .breadcrumb a{color:var(--accent-dark);text-decoration:none}
+    .breadcrumb a:hover{text-decoration:underline}
+    .gallery-grid{list-style:none;margin:0;padding:0;columns:1;column-gap:18px}
+    .gallery-grid li{break-inside:avoid;margin:0 0 18px}
+    .gallery-item{display:block;border-radius:12px;overflow:hidden;background:var(--surface);line-height:0}
+    .gallery-item img{width:100%;height:auto;display:block;transition:transform .45s ease}
+    .gallery-item:hover img,.gallery-item:focus-visible img{transform:scale(1.04)}
+    .gallery-item:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
+    @media(min-width:680px){.gallery-grid{columns:2}}
+    @media(min-width:1024px){.gallery-grid{columns:3}}
+    @media (prefers-reduced-motion: reduce){.gallery-item img{transition:none}.gallery-item:hover img{transform:none}}
+
+    /* Lightbox */
+    .lightbox{border:0;padding:0;background:transparent;max-width:100vw;max-height:100vh;width:100%;height:100%;overflow:hidden}
+    .lightbox::backdrop{background:rgba(10,15,20,.92)}
+    .lb-figure{margin:0;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:56px 16px}
+    .lb-img{max-width:min(100%,1400px);max-height:calc(100vh - 150px);width:auto;height:auto;object-fit:contain;border-radius:8px}
+    .lb-caption{color:rgba(255,255,255,.9);font-size:.9rem;text-align:center;max-width:70ch}
+    .lb-btn{position:absolute;background:rgba(0,0,0,.5);color:#fff;border:0;border-radius:999px;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center}
+    .lb-btn:hover{background:rgba(0,0,0,.75)}
+    .lb-btn:focus-visible{outline:3px solid var(--secondary);outline-offset:2px}
+    .lb-close{top:14px;right:14px;width:44px;height:44px;font-size:1.8rem}
+    .lb-prev,.lb-next{top:50%;transform:translateY(-50%);width:48px;height:48px;font-size:2.2rem}
+    .lb-prev{left:10px}
+    .lb-next{right:10px}
+
+    /* ---------- Legal pages ---------- */
+    .legal{max-width:780px}
+    .legal h2{font-size:1.15rem;margin:36px 0 10px}
+    .legal h2:first-child{margin-top:0}
+    .legal p{margin-bottom:14px}
+    .legal ul{margin:0 0 14px 22px}
+    .legal li{margin-bottom:7px}
+    .legal a{color:var(--accent-dark)}
+    .legal-updated{font-size:.86rem;color:var(--body);margin-top:32px;padding-top:16px;border-top:1px solid var(--line)}
+
+    /* ---------- Footer ---------- */
+    footer{background:var(--footer-bg);color:var(--footer-fg)}
+    .footer-top{display:grid;grid-template-columns:1fr;gap:36px;padding:64px 0 48px;border-bottom:1px solid rgba(255,255,255,.1)}
+    @media(min-width:860px){.footer-top{grid-template-columns:1fr 1fr}}
+    .footer-brand .logo-mark .logo-light{display:block}
+    .footer-brand .logo-mark .logo-dark{display:none}
+    .footer-brand .logo-word{color:#fff}
+    .footer-brand p{color:var(--footer-fg);margin-top:14px}
+    .footer-social{display:flex;gap:12px;margin-top:18px}
+    .footer-social span{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#fff}
+    .callback h3{color:#fff;font-size:1.15rem}
+    .callback p{color:var(--footer-fg)}
+    .callback-form{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px}
+    .callback-form input{flex:1;min-width:200px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:.9em 1.1em;color:#fff;font:inherit}
+    .callback-form input::placeholder{color:rgba(255,255,255,.45)}
+    .footer-cols{display:grid;grid-template-columns:1fr;gap:32px;padding:48px 0}
+    @media(min-width:700px){.footer-cols{grid-template-columns:repeat(3,1fr)}}
+    .footer-cols h4{color:#fff;font-size:.9rem;font-weight:700;margin-bottom:16px}
+    .footer-cols ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+    .footer-cols a{color:var(--footer-fg);text-decoration:none;font-size:.9rem}
+    .footer-cols a:hover{color:#fff}
+    .footer-cols .phone{display:block;color:#fff;font-weight:700;margin-top:6px}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding:20px 0;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:.8rem;color:rgba(255,255,255,.45)}
+
+    .skip-link{position:absolute;left:-999px;top:auto;background:var(--accent);color:#fff;padding:10px 16px;z-index:200;font-weight:700;text-decoration:none;border-radius:6px}
+    .skip-link:focus{left:16px;top:16px}
+	

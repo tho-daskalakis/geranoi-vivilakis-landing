@@ -2,3 +2,12 @@
 
 assets
 
+
+# SMTP credentials — never commit
+config.php
+
+# Per-IP submission counters written by send.php at runtime
+.ratelimit/
+
+# Raw OSM tiles cached by tools/build-map.py; map.webp is the committed output
+.tilecache/

@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /partials/
+Disallow: /tools/
+Disallow: /vendor/
+Disallow: /404
+Disallow: /send
+
+Sitemap: https://vivilakiscranes.gr/sitemap.xml
