@@ -113,6 +113,10 @@ foreach ([$business, $faq_schema] as $block) {
 }
 
 include __DIR__ . '/partials/head.php';
+
+// The hero video sits behind the header on this page and nowhere else,
+// so this is the only page that may render the header transparent.
+$header_transparent = true;
 include __DIR__ . '/partials/header.php';
 ?>
 

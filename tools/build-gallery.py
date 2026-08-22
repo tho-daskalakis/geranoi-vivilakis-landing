@@ -26,9 +26,15 @@ has no business shipping.
 It also regenerates `sitemap.xml`, since the gallery's image entries are the
 only part of it that changes and a hand-maintained image sitemap would drift.
 
+Finally it runs `tools/redact-gallery.py`, which paints out the third-party
+marks listed in `tools/gallery-redactions.json`. That is called from here
+rather than left as a second command to remember, because forgetting it
+republishes another company's phone number.
+
 Usage:  python3 tools/build-gallery.py
 Exit 0 = clean, 1 = missing alt text or unreadable source.
 """
+import importlib.util
 import io
 import json
 import re
@@ -147,6 +153,20 @@ def main() -> int:
     (OUT / "manifest.php").write_text("\n".join(php) + "\n", encoding="utf-8")
 
     write_sitemap(manifest)
+
+    # Freshly built masters have lost their redactions — this is the pass that
+    # puts them back. Imported by path, and lazily, because the filename has a
+    # hyphen and because that module imports this one for TIERS/save_webp.
+    spec = importlib.util.spec_from_file_location(
+        "redact_gallery", Path(__file__).with_name("redact-gallery.py"))
+    redact = importlib.util.module_from_spec(spec)
+    sys.modules.setdefault("build_gallery", sys.modules[__name__])
+    spec.loader.exec_module(redact)
+    print("\nredactions:")
+    if redact.apply_all() != 0:
+        print("\nredaction pass failed — derivatives may still carry third-party marks.",
+              file=sys.stderr)
+        return 1
 
     total = sum(f.stat().st_size for f in OUT.glob("*.webp"))
     print(f"\n{len(manifest)} image(s), {total // 1024} KB of derivatives, manifest + sitemap written.")

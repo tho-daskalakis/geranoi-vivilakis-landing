@@ -18,6 +18,8 @@ python3 tools/check-links.py   # every internal link/asset resolves
 python3 tools/check-homoglyphs.py  # no Greek/Latin mixed-script words
 python3 tools/build-gallery.py               # rebuild gallery derivatives + manifest + sitemap
 python3 tools/build-gallery.py --sitemap-only  # just rewrite sitemap.xml (seconds, not minutes)
+python3 tools/redact-gallery.py              # paint out third-party marks (build-gallery runs this itself)
+python3 tools/redact-gallery.py --check      # verify the shipped masters are the redacted ones
 bash    tools/build-hero-video.sh            # re-encode media/hero-video.mp4 + poster
 python3 tools/build-map.py                   # rebuild map.webp from OSM tiles
 python3 tools/svg2png.py <in.svg> <out.png> --height N [--shadow]
@@ -90,11 +92,22 @@ The vector was rebuilt from an auto-trace whose background was baked in as two f
 
 **Neither is the gallery.** `tools/gallery-alt.json` is the only hand-authored input — it sets both the order and the Greek alt text. `tools/build-gallery.py` reads it and generates `media/gallery/manifest.php`, which `gallery.php` renders twice (grid + `ImageObject` schema), and `sitemap.xml`. Never edit the manifest or the sitemap by hand. A source with no alt-text entry is refused, not shipped with an empty `alt`.
 
+**`tools/gallery-redactions.json` is the second hand-authored gallery input.** It lists regions that must be painted out of the shipped derivatives — another company's signage, someone else's watermark. `tools/build-gallery.py` runs `tools/redact-gallery.py` itself at the end of a build, because a rebuild otherwise republishes marks that were removed on purpose.
+
+Two things about it are easy to get wrong:
+
+- **Coordinates are in the master derivative's pixel space** (long edge 1600), *not* the source photo's. The g22 source is no longer in `assets/`, so the derivative is the only copy left to measure against.
+- **`tools/gallery-redactions.lock.json` is generated** — slug → digest of the redacted master. It exists because blurring an already-blurred region blurs it *further*; without the lock, repeated runs would slowly spread the soft patch. Do not hand-edit it, and do not "simplify" it away.
+
+Masks feather **outward only** (`ImageChops.lighter(hard_rect, gaussian(hard_rect))`). A plain blurred-rectangle mask also ramps *inward*, leaving ~20% of the sharp original showing through at the box edges — enough that the first version of this left the watermark legible as a ghost. `--check` reports a `ghost` figure in units of the region's own noise; anything at or above 0.5σ means the mark is still traceable by eye.
+
 ## Assets
 
 Files referenced by the page live in the repo root and are committed. `assets/` is **gitignored** — it is the raw client media library (22 source images ~68 MB, 4 `.mov` videos ~213 MB, the traced logo source). Workflow: pick a source, crop/optimize, save to the repo root or `media/`, reference it.
 
 Gallery images go through `tools/build-gallery.py`; everything else must be **compressed before committing**. `worksite.jpeg` was 2.9 MB at 3024×4032 for a slot ~544 px wide; it is now 268 KB. Every `<img>` needs explicit `width`/`height` to prevent layout shift.
+
+**⚠️ `assets/images/` has drifted out of sync with `tools/gallery-alt.json` — do not run `build-gallery.py`.** The local `image00001`–`image00013` are a *different batch* from the ones the shipped gallery was built from; `image00083`–`image00092` still match. Verified by thumbnail comparison against the shipped derivatives: the 830s–920s match their slugs within a distance of ~4k–20k, the 1–13 range is all ~100k+ off, and their subjects match the wrong alt text (local `image00012.jpeg` is the scaffolded-building shot that the JSON assigns to `g11` via `image00005.jpeg`). A rebuild today would scramble 12 of the 22 entries and pair every one of them with a wrong Greek alt. The g22 source is gone from the library entirely. **Re-map the JSON against the real files, or restore the original library, before the build script is ever run again.**
 
 **The source media leaks location.** 21 of the 22 photos and the `.mov` files carry GPS EXIF, and 11 photos carry EXIF orientation 6. Both pipelines strip metadata deliberately — `-map_metadata -1` for ffmpeg, a cleared `info` dict for PIL — and both apply the rotation first. If you ever hand-process a source, do the same, or you will publish the client's location and half the images sideways.
 
@@ -107,7 +120,7 @@ Do not treat these as bugs to silently "fix"; they are pending real content or c
 - **Three unverified claims** in the copy: "50 years" family tradition, 32 m platform height, 7 t forklift capacity. None confirmed. An inflated lifting capacity carries liability beyond marketing — confirm before launch.
 - **`config.php` does not exist yet.** Without it the form validates correctly but always returns `?sent=error` and logs `config.php missing`. Copy `config.example.php` and fill in the pointer.gr SMTP credentials.
 - **`privacy.php` states a 24-month retention period** and omits ΑΦΜ / ΓΕΜΗ. Both are defaults, not client-supplied facts — see the file header.
-- **`media/gallery/g22.webp`** (from `image00012.jpeg`) carries a third-party TikTok watermark (`@katerinakamnaki`). Confirm rights before launch or drop that entry from `tools/gallery-alt.json`.
+- **`media/gallery/g22.webp` is still a third-party photo.** Its TikTok watermark (`@katerinakamnaki`) and the orange sign advertising `ΑΦΟΙ ΒΙΒΙΛΑΚΗ Ο.Ε.` — the father's company, carrying a phone number that is *not* this business's — are now painted out via `tools/gallery-redactions.json`. Removing the credit mark does not grant the rights: **confirm permission to use the photo, or drop the entry from `tools/gallery-alt.json`.**
 - ΑΦΜ / ΓΕΜΗ are absent from the footer; not supplied.
 - No real browser QA has ever been done on this project — no Lighthouse run, no responsive pass.
 

@@ -13,7 +13,7 @@
 $gallery = require __DIR__ . '/media/gallery/manifest.php';
 
 $base             = 'https://vivilakiscranes.gr';
-$page_title       = 'Έργα μας — Φωτογραφίες από ανυψώσεις και μεταφορές | Βιβιλάκης Εμμανουήλ';
+$page_title       = 'Γκαλερί — Φωτογραφίες από ανυψώσεις και μεταφορές | Βιβιλάκης Εμμανουήλ';
 $page_description = 'Φωτογραφίες από εργασίες μας στην Κρήτη: ανυψώσεις με γερανό, μεταφορές σκαφών, εργοτάξια, κοντέινερ, μπομπίνες καλωδίου και εργασίες με καλαθοφόρο.';
 $canonical        = $base . '/gallery';
 $og_image         = $base . '/media/gallery/' . $gallery[0]['file'] . '.webp';
@@ -22,7 +22,7 @@ $collection = [
 	'@context' => 'https://schema.org',
 	'@type' => 'CollectionPage',
 	'@id' => $canonical . '#page',
-	'name' => 'Έργα μας',
+	'name' => 'Γκαλερί',
 	'description' => $page_description,
 	'url' => $canonical,
 	'inLanguage' => 'el',
@@ -44,7 +44,7 @@ $breadcrumbs = [
 	'@type' => 'BreadcrumbList',
 	'itemListElement' => [
 		['@type' => 'ListItem', 'position' => 1, 'name' => 'Αρχική', 'item' => $base . '/'],
-		['@type' => 'ListItem', 'position' => 2, 'name' => 'Έργα μας', 'item' => $canonical],
+		['@type' => 'ListItem', 'position' => 2, 'name' => 'Γκαλερί', 'item' => $canonical],
 	],
 ];
 
@@ -63,10 +63,10 @@ include __DIR__ . '/partials/header.php';
 	<section class="section page-head">
 		<div class="container">
 			<nav class="breadcrumb" aria-label="Διαδρομή πλοήγησης">
-				<a href="/">Αρχική</a> <span aria-hidden="true">›</span> <span aria-current="page">Έργα μας</span>
+				<a href="/">Αρχική</a> <span aria-hidden="true">›</span> <span aria-current="page">Γκαλερί</span>
 			</nav>
 			<div class="section-head">
-				<h1>Έργα μας</h1>
+				<h1>Γκαλερί</h1>
 				<p>Φωτογραφίες από πραγματικές εργασίες σε όλη την Κρήτη — ανυψώσεις με γερανό, μεταφορές σκαφών και βαρέων φορτίων, εργοτάξια και εργασίες με καλαθοφόρο.</p>
 			</div>
 		</div>

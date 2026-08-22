@@ -27,7 +27,7 @@
 					<li><a href="/">Αρχική</a></li>
 					<li><a href="/#about">Εταιρεία</a></li>
 					<li><a href="/#services">Υπηρεσίες</a></li>
-					<li><a href="/gallery">Έργα μας</a></li>
+					<li><a href="/gallery">Γκαλερί</a></li>
 					<li><a href="/#contact">Επικοινωνία</a></li>
 					<li><a href="/privacy">Πολιτική Απορρήτου</a></li>
 				</ul>

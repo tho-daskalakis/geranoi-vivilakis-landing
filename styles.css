@@ -51,7 +51,9 @@
       transition:background .25s ease, border-color .25s ease, box-shadow .25s ease;
       --hfg:#ffffff;
     }
-    .site-header.scrolled{
+    /* .solid is set server-side by partials/header.php on every page without a
+       hero; .scrolled is added by JS past 40px. Same painted state either way. */
+    .site-header.scrolled, .site-header.solid{
       background:var(--primary);backdrop-filter:blur(8px);
 			box-shadow:0 1px 0 rgba(0,0,0,.02);
       --hfg:var(--white);
@@ -65,9 +67,11 @@
        and a light/reversed version for the transparent header over the hero photo + the dark footer.
        Swap is automatic based on the header's scrolled state. */
     .logo-mark .logo-dark{display:none}
-    .site-header:not(.scrolled) .logo-mark .logo-light{display:block}
-    .site-header.scrolled .logo-mark .logo-light{display:none}
-    .site-header.scrolled .logo-mark .logo-dark{display:block}
+    .site-header:not(.scrolled):not(.solid) .logo-mark .logo-light{display:block}
+    .site-header.scrolled .logo-mark .logo-light,
+    .site-header.solid .logo-mark .logo-light{display:none}
+    .site-header.scrolled .logo-mark .logo-dark,
+    .site-header.solid .logo-mark .logo-dark{display:block}
     .logo-word{font-weight:800;font-size:.92rem;letter-spacing:.02em;white-space:nowrap}
     .site-header .logo-word{display:none}
     @media(max-width:479px){

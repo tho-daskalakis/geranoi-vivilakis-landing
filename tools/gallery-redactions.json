@@ -1,0 +1,22 @@
+[
+	{
+		"slug": "g22",
+		"note": "Orange sign on the cabin advertising ΑΦΟΙ ΒΙΒΙΛΑΚΗ Ο.Ε. — the father's company, with a phone number that is not this business's — plus a third-party TikTok watermark on the asphalt.",
+		"regions": [
+			{
+				"what": "orange sign, wrong company + wrong phone",
+				"mode": "blur",
+				"box": [768, 746, 1002, 880],
+				"sigma": 16,
+				"feather": 12
+			},
+			{
+				"what": "TikTok watermark @katerinakamnaki",
+				"mode": "patch",
+				"box": [872, 1160, 1185, 1208],
+				"from": [0, 170],
+				"feather": 10
+			}
+		]
+	}
+]

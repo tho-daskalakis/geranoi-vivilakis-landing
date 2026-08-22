@@ -11,3 +11,6 @@ config.php
 
 # Raw OSM tiles cached by tools/build-map.py; map.webp is the committed output
 .tilecache/
+
+# build-gallery.py imports redact-gallery.py by path, which leaves bytecode behind
+tools/__pycache__/

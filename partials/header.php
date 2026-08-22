@@ -1,6 +1,13 @@
 <a href="#main" class="skip-link">Μετάβαση στο περιεχόμενο</a>
 
-<header class="site-header" id="siteHeader">
+<?php
+/* Only the home page has a hero behind the header, so only the home page can
+   afford a transparent one — anywhere else the white foreground is invisible
+   against the page until the visitor scrolls past 40px. Solid is the default;
+   index.php opts out. */
+$header_transparent = $header_transparent ?? false;
+?>
+<header class="site-header<?= $header_transparent ? '' : ' solid' ?>" id="siteHeader">
 	<div class="header-row">
 		<a href="/" class="logo-area">
 			<span class="logo-mark">
@@ -23,7 +30,7 @@
 							<a href="/#services">Εργασίες με Καλαθοφόρο</a>
 						</div>
 					</li>
-					<li><a href="/gallery">Έργα μας</a></li>
+					<li><a href="/gallery">Γκαλερί</a></li>
 					<li><a href="/#about">Εταιρεία</a></li>
 					<li><a href="/#contact">Επικοινωνία</a></li>
 				</ul>
@@ -41,7 +48,7 @@
 	</div>
 	<nav class="mobile-nav" id="mobileNav" aria-label="Μενού κινητού">
 		<a href="/#services">Υπηρεσίες</a>
-		<a href="/gallery">Έργα μας</a>
+		<a href="/gallery">Γκαλερί</a>
 		<a href="/#about">Εταιρεία</a>
 		<a href="/#faq">Συχνές Ερωτήσεις</a>
 		<a href="/#contact">Επικοινωνία</a>
