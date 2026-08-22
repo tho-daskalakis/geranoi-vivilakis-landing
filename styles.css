@@ -160,6 +160,9 @@
     /* ---------- Services ---------- */
     .section{padding:96px 0}
     .section-head{max-width:640px;margin-bottom:20px}
+    /* The 640px cap is what makes a centred section-head need this: text-align
+       alone centres the text inside a box that is still flush left. */
+    .section-head.center{margin-left:auto;margin-right:auto;text-align:center}
     .section-head h2{font-size:clamp(1.8rem,3.4vw,2.5rem)}
     .badge-row{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 52px}
     .badge-row span{background:var(--primary);color:var(--white);font-size:.82rem;font-weight:600;padding:.5em 1.1em;border-radius:999px}

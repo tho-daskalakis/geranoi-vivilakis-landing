@@ -95,8 +95,8 @@ include __DIR__ . '/partials/header.php';
 	</section>
 
 	<section class="section" style="background:var(--surface)">
-		<div class="container" style="text-align:center">
-			<div class="section-head">
+		<div class="container">
+			<div class="section-head center">
 				<h2>Χρειάζεστε γερανό για τη δική σας εργασία;</h2>
 				<p>Πείτε μας τι θέλετε να ανυψώσετε ή να μεταφέρετε και θα σας προτείνουμε τον κατάλληλο εξοπλισμό.</p>
 			</div>
