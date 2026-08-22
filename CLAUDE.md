@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A marketing site for **Βιβιλάκης Εμμανουήλ – Γερανοί και Μεταφορές**, a solo crane/heavy-haulage operator based in Heraklion, Crete. Deployed at `https://vivilakiscranes.gr/`, hosted on **pointer.gr** (cPanel, Apache/LiteSpeed, PHP).
+A marketing site for **Βιβιλάκης Εμμανουήλ – Γερανοί και Μεταφορές**, a solo crane/heavy-haulage operator based in Heraklion, Crete. Deployed at `https://vivilakiscranes.gr/`, hosted on **pointer.gr** — a **Plesk** panel, Apache behind nginx, PHP; the document root is `httpdocs`. The same machine hosts the domain's mailbox: `mail.vivilakiscranes.gr` and the site resolve to one IP, which is why the contact form needs no mail credentials (see below).
 
 Copy and design should stay honest about scale — one crane truck, one aerial lift, a forklift, personnel platforms, a boat trailer. Not "our fleet".
 
@@ -37,7 +37,8 @@ php -l <file>                  # syntax check a single file
 ```
 index.php  gallery.php  privacy.php  404.php    pages
 send.php                        contact-form handler; POST target is /send
-config.php                      SMTP credentials, gitignored (see config.example.php)
+config.php                      optional overrides for send.php, gitignored
+                                (see config.example.php); the site sends without it
 partials/head.php               <head> + opening <body>; takes $page_title,
                                 $page_description, $canonical, $json_ld, $robots
 partials/header.php             skip-link, header, nav, mobile nav
@@ -52,6 +53,12 @@ assets/                         gitignored source media
 ```
 
 Each page sets its metadata variables, then includes `head.php` → `header.php` → its own `<main>` → `footer.php`.
+
+**The contact form hands mail to the local queue, and needs no credentials.** `send.php` defaults to `transport => 'mail'` — PHP's `mail()`, which Plesk wires to the server's own mail queue. The web server *is* the mail server for this domain and `info@vivilakiscranes.gr` is a mailbox on it, so the enquiry is delivered locally: no socket, no DNS, no password, and SPF/DKIM/spam scoring never enter into it.
+
+Do not "fix" this back to authenticated SMTP. That is what it did originally, and it was the bug: outbound SMTP ports are filtered on this host, so every submission hung until the gateway timed out. Two knobs are needed to make the `smtp` transport fail fast, and only one of them is obvious — `Timeout` bounds the *connect*, while `SMTP::$Timelimit` (300s, doubled during DATA) bounds *waiting for a reply*, which is where the hang actually lived. `set_time_limit()` cannot save you: PHP's execution clock does not tick during blocked socket I/O.
+
+`config.php` is optional and holds no secret. If it is absent, the defaults in `send.php` are used verbatim. Fallback ladder if the local queue ever fails, each a one-line edit to `config.php` and nothing else: `'transport' => 'sendmail'` (if `mail()` is in `disable_functions`), then `'transport' => 'smtp'` against `localhost:25` with an empty `smtp_user`, which skips auth. Failures are logged as `send.php [<transport>]: …`, readable in the Plesk panel's log viewer — that log line is the only diagnostic channel the handler has, since it always redirects rather than rendering.
 
 **Language:** all user-facing copy is Greek (`lang="el"`). An English version at `/en/` is planned but **not published**. Two things are commented out on purpose and must be uncommented *together*: the `hreflang="en"` alternate in `partials/head.php` and the `.lang-btn` in `partials/header.php`.
 
@@ -118,7 +125,6 @@ Gallery images go through `tools/build-gallery.py`; everything else must be **co
 Do not treat these as bugs to silently "fix"; they are pending real content or confirmation:
 
 - **Three unverified claims** in the copy: "50 years" family tradition, 32 m platform height, 7 t forklift capacity. None confirmed. An inflated lifting capacity carries liability beyond marketing — confirm before launch.
-- **`config.php` does not exist yet.** Without it the form validates correctly but always returns `?sent=error` and logs `config.php missing`. Copy `config.example.php` and fill in the pointer.gr SMTP credentials.
 - **`privacy.php` states a 24-month retention period** and omits ΑΦΜ / ΓΕΜΗ. Both are defaults, not client-supplied facts — see the file header.
 - **`media/gallery/g22.webp` is still a third-party photo.** Its TikTok watermark (`@katerinakamnaki`) and the orange sign advertising `ΑΦΟΙ ΒΙΒΙΛΑΚΗ Ο.Ε.` — the father's company, carrying a phone number that is *not* this business's — are now painted out via `tools/gallery-redactions.json`. Removing the credit mark does not grant the rights: **confirm permission to use the photo, or drop the entry from `tools/gallery-alt.json`.**
 - ΑΦΜ / ΓΕΜΗ are absent from the footer; not supplied.
