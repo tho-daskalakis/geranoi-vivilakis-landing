@@ -59,6 +59,7 @@ def main() -> int:
                 continue
 
             path, _, frag = raw.partition("#")
+            path = path.partition("?")[0]     # ?v= cache-busters, ?sent= etc.
 
             if not path:                      # same-page anchor
                 if frag and frag not in ids[page]:

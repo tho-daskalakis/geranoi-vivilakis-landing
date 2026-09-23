@@ -67,6 +67,8 @@ $page_description = $page_description ?? '';
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" href="/styles.css">
+	<?php /* .htaccess caches CSS for a year as immutable, so the URL must change
+	         when the file does. The mtime changes on every upload. */ ?>
+	<link rel="stylesheet" href="/styles.css?v=<?= filemtime(__DIR__ . '/../styles.css') ?>">
 </head>
 <body>
