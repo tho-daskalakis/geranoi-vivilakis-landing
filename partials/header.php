@@ -31,7 +31,7 @@ $header_transparent = $header_transparent ?? false;
 						</div>
 					</li>
 					<li><a href="/gallery">Γκαλερί</a></li>
-					<li><a href="/#about">Εταιρεία</a></li>
+					<li><a href="/about">Εταιρεία</a></li>
 					<li><a href="/#contact">Επικοινωνία</a></li>
 				</ul>
 			</nav>
@@ -49,7 +49,7 @@ $header_transparent = $header_transparent ?? false;
 	<nav class="mobile-nav" id="mobileNav" aria-label="Μενού κινητού">
 		<a href="/#services">Υπηρεσίες</a>
 		<a href="/gallery">Γκαλερί</a>
-		<a href="/#about">Εταιρεία</a>
+		<a href="/about">Εταιρεία</a>
 		<a href="/#faq">Συχνές Ερωτήσεις</a>
 		<a href="/#contact">Επικοινωνία</a>
 		<a href="tel:+306949776292" style="font-weight:700">Καλέστε: 6949 776 292</a>

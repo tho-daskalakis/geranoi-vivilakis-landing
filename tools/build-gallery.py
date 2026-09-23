@@ -204,6 +204,10 @@ def write_sitemap(manifest: list[dict]) -> None:
                       "\t\t</image:image>"]
         lines.append("\t</url>")
 
+    if (ROOT / "about.php").exists():
+        lines += ["\t<url>", f"\t\t<loc>{BASE}/about</loc>",
+                  "\t\t<changefreq>yearly</changefreq>", "\t\t<priority>0.7</priority>", "\t</url>"]
+
     if (ROOT / "privacy.php").exists():
         lines += ["\t<url>", f"\t\t<loc>{BASE}/privacy</loc>",
                   "\t\t<changefreq>yearly</changefreq>", "\t\t<priority>0.2</priority>", "\t</url>"]

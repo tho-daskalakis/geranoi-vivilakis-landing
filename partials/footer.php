@@ -25,7 +25,7 @@
 				<h4>Μενού</h4>
 				<ul>
 					<li><a href="/">Αρχική</a></li>
-					<li><a href="/#about">Εταιρεία</a></li>
+					<li><a href="/about">Εταιρεία</a></li>
 					<li><a href="/#services">Υπηρεσίες</a></li>
 					<li><a href="/gallery">Γκαλερί</a></li>
 					<li><a href="/#contact">Επικοινωνία</a></li>
